@@ -37,3 +37,10 @@
     </div>
   </div>
 </div>
+<script type="text/javascript">
+  if (jQuery != undefined) {
+    if (jQuery.colorbox != undefined) {
+      jQuery('a.popin').colorbox();
+    }
+  }
+</script>

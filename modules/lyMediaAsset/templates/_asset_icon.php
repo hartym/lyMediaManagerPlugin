@@ -1,18 +1,22 @@
 <div class="lymedia_asset">
   <div class="lymedia_asset_frame">
     <?php if($popup): ?>
-    <div class="lymedia_popup_info">
-      <span>
-        <?php echo image_path('/' . $asset->getPath()); ?>
-      </span>
-      <?php foreach(lyMediaThumbnails::getThumbnailSettings() as $type => $params): ?>
-        <span class="<?php echo $type; ?>">
-          <?php echo thumbnail_image_path($asset, $folder->getRelativePath(), $type); ?>
+      <div class="lymedia_popup_info">
+        <span>
+          <?php echo image_path('/' . $asset->getPath()); ?>
         </span>
-      <?php endforeach; ?>
-    </div>
+        <?php foreach(lyMediaThumbnails::getThumbnailSettings() as $type => $params): ?>
+          <span class="<?php echo $type; ?>">
+            <?php echo thumbnail_image_path($asset, $folder->getRelativePath(), $type); ?>
+          </span>
+        <?php endforeach; ?>
+      </div>
+      <?php echo thumbnail_image_tag($asset, $folder->getRelativePath(), 'small', 'alt=asset title=' . $asset->getTitle()); ?>
+    <?php else: ?>
+      <a class="popin" href="<?php echo url_for('ly_media_asset_show', $asset) ?>">
+        <?php echo thumbnail_image_tag($asset, $folder->getRelativePath(), 'small', 'alt=asset title=' . $asset->getTitle()); ?>
+      </a>
     <?php endif; ?>
-    <?php echo thumbnail_image_tag($asset, $folder->getRelativePath(), 'small', 'alt=asset title=' . $asset->getTitle()); ?>
   </div>
   <div class="lymedia_caption">
     <?php echo format_asset_caption($asset); ?>
