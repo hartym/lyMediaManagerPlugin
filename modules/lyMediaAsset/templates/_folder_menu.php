@@ -34,6 +34,6 @@
   </div>
   <div class="lymedia_folder_actions">
     <?php include_partial('lyMediaAsset/folder_form', array('form' => $folder_form));?>
-    <?php include_partial('lyMediaAsset/upload_form', array('form' => $upload_form));?>
+    <?php include_partial('lyMediaAsset/asset_form', array('form' => $asset_form));?>
   </div>
 </div>

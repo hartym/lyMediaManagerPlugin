@@ -26,7 +26,8 @@ class lyMediaValidatorFile extends sfValidatorFile
   protected function doClean($value)
   {
     $value = parent::doClean($value);
-    if($this->hasOption('allowed_extensions'))
+
+    if ($this->hasOption('allowed_extensions'))
     {
       $extensions = $this->getOption('allowed_extensions');
       if(!is_array($extensions))

@@ -104,7 +104,7 @@ abstract class PluginlyMediaAssetForm extends BaselyMediaAssetForm
     }
     parent::doBind($values);
   }
-  
+
   public function processValues($values)
   {
     if($this->isNew())

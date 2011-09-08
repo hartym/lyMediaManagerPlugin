@@ -13,7 +13,7 @@
           'popup' => $popup,
           'helper' => $helper,
           'folder_form' => $folder_form,
-          'upload_form' => $upload_form,
+          'asset_form' => $asset_form,
           'nbfiles' => $pager->getnbResults(),
           'nbfolders' => $nbfolders,
           'total_size' => $total_size,

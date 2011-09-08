@@ -7,7 +7,7 @@
  */
 
 /**
- * Upload form class.
+ * lyMediaAsset form class.
  *
  * @package     lyMediaManagerPlugin
  * @subpackage  form
@@ -15,10 +15,19 @@
  * @license     http://www.symfony-project.org/license MIT
  * @version     SVN: $Id$
  */
-
-class lyMediaUploadForm extends BaselyMediaUploadForm
+class lyMediaSimplerAssetForm extends lyMediaAssetForm
 {
-  public function configure()
+  public function setup()
   {
+    parent::setup();
+
+    unset(
+      $this['title'],
+      $this['description'],
+      $this['author'],
+      $this['copyright']
+    );
+
+    $this->widgetSchema['folder_id'] = new sfWidgetFormInputHidden();
   }
 }

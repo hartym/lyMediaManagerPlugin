@@ -23,28 +23,29 @@ class lyMediaValidatorAsset extends sfValidatorBase
     $this->addMessage('folder_unwritable', 'File system error: "%folder%" folder is not writable or doesn\'t exist.');
     $this->addMessage('file_exists', 'Can\'t save "%name%". A file with the same name exists in "%folder%".');
   }
+
   protected function doClean($values)
   {
     $folder = lyMediaFolderTable::getInstance()
         ->find($values['folder_id']);
 
-    if($folder === false)
+    if ($folder === false)
     {
       throw new sfValidatorError($this, 'invalid');
     }
 
     $fs = new lyMediaFileSystem();
-    if(!$fs->is_dir($folder->getRelativePath()) || !$fs->is_writable($folder->getRelativePath()))
+    if (!$fs->is_dir($folder->getRelativePath()) || !$fs->is_writable($folder->getRelativePath()))
     {
       throw new sfValidatorError($this, 'folder_unwritable', array('folder' => $folder->getRelativePath()));
     }
-    
+
     $my_id = empty($values['id']) ? 0 : $values['id'];
     $assets = $folder->getAssets();
-    
-    foreach($assets as $a)
+
+    foreach ($assets as $a)
     {
-      if($values['filename'] == $a->getFilename() && $a->getId() != $my_id)
+      if ($values['filename'] == $a->getFilename() && $a->getId() != $my_id)
       {
         throw new sfValidatorError($this, 'file_exists', array('name' => $values['filename'], 'folder' => $folder->getName()));
       }

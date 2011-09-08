@@ -8,7 +8,7 @@
 
 /**
  * Base actions for the lyMediaManagerPlugin lyMediaAsset module.
- * 
+ *
  * @package     lyMediaManagerPlugin
  * @subpackage  lyMediaAsset
  * @copyright   Copyright (C) 2010 Massimo Giagnoni.
@@ -74,7 +74,7 @@ abstract class BaselyMediaAssetActions extends autoLyMediaAssetActions
 
     $this->pager = new sfDoctrinePager('lyMediaAsset', sfConfig::get('app_lyMediaManager_assets_per_page', 20));
     $this->pager->setQuery($this->folder->retrieveAssetsQuery(array(
-      'sort_field' => $this->sort_field, 
+      'sort_field' => $this->sort_field,
       'sort_dir' => $this->sort_dir
     )));
     $this->pager->setPage($this->getUser()->getAttribute('page', 1));
@@ -111,14 +111,15 @@ abstract class BaselyMediaAssetActions extends autoLyMediaAssetActions
     $this->getUser()->setAttribute('view', 'icons');
 
     $this->folder_form = new lyMediaCreateFolderForm();
-    $this->upload_form = new lyMediaUploadForm(null, array('folder' => $this->folder));
+    $this->asset_form = new lyMediaSimplerAssetForm(null, array('folder_id'=>$this->folder->getId()));
+
     $this->nbfolders = $this->folders ? count($this->folders) : 0;
     $this->total_size = $this->folder->sumFileSizes();
   }
 
   /**
    * Deletes an asset.
-   * 
+   *
    * @param sfWebRequest $request
    */
   public function executeDelete(sfWebRequest $request)
@@ -151,17 +152,16 @@ abstract class BaselyMediaAssetActions extends autoLyMediaAssetActions
 
   /**
    * Uploads an asset
-   * 
-   * @param sfWebRequest $request 
+   *
+   * @param sfWebRequest $request
    */
   public function executeUpload(sfWebRequest $request)
   {
     $folder = lyMediaFolderTable::getInstance()
       ->retrieveCurrent($this->getUser()->getAttribute('folder_id', 0));
 
-    $form = new lyMediaUploadForm(null, array(
-      'folder' => $folder)
-    );
+    $form = new lyMediaSimplerAssetForm(null, $this->configuration->getFormOptions());
+    $form->getObject()->setFolderId($folder->getId());
 
     $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
 
@@ -169,7 +169,6 @@ abstract class BaselyMediaAssetActions extends autoLyMediaAssetActions
     {
       $form->save();
       $this->getUser()->setFlash('notice', 'File successfully uploaded.');
-
     }
     else
     {
@@ -224,8 +223,8 @@ abstract class BaselyMediaAssetActions extends autoLyMediaAssetActions
   }
   /**
    * Downloads an asset file
-   * 
-   * @param sfWebRequest $request 
+   *
+   * @param sfWebRequest $request
    */
   public function executeDownload(sfWebRequest $request)
   {
@@ -240,7 +239,7 @@ abstract class BaselyMediaAssetActions extends autoLyMediaAssetActions
     $response->setHttpHeader('Expires', 0);
     $response->setHttpHeader('Cache-Control', 'must-revalidate, post-check=0, pre-check=0');
     $response->setHttpHeader('Content-Length', filesize($this->file));
-    
+
     $this->setLayout(false);
   }
 
