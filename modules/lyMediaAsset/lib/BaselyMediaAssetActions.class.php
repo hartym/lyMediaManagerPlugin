@@ -35,8 +35,6 @@ abstract class BaselyMediaAssetActions extends autoLyMediaAssetActions
   public function executeShow(sfWebRequest $request)
   {
     $this->asset = $this->getRoute()->getObject();
-
-    $fs = new lyMediaFileSystem();
     $this->filename = $this->asset->getPath();
   }
 

@@ -11,11 +11,7 @@
     <td>
       <div align="center">
         <strong>Relative URL :</strong>
-        <input type="text" value="<?php echo image_path('/'.$filename); ?>"
-               disabled="true" />
-        </br />
-        <strong>Absolute URL :</strong>
-        <input type="text" value="<?php echo image_path('/'.$filename, true); ?>"
+        <input type="text" value="/<?php echo $filename; ?>"
                disabled="true" />
       </div>
     </td>
