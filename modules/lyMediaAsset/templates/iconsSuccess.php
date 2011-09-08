@@ -40,7 +40,13 @@
 <script type="text/javascript">
   if (jQuery != undefined) {
     if (jQuery.colorbox != undefined) {
-      jQuery('a.popin').colorbox();
+      jQuery('a.popin').colorbox({
+          initialHeight: '50%',
+          initialWidth: '50%',
+          innerWidth: '75%',
+          innerHeight: '75%',
+        });
     }
   }
 </script>
+

@@ -1,11 +1,23 @@
 <?php include_partial('lyMediaAsset/assets') ?>
-<div>
-  <?php echo thumbnail_image_tag($asset, $asset->getFolder()->getRelativePath(), 'medium', 'alt=asset title=' . $asset->getTitle()); ?>
-</div>
-
-<div>
-  <strong>Relative :</strong> <?php echo image_path('/'.$filename, true); ?>
-</div>
-<div>
-  <strong>Absolute :</strong> <?php echo image_path('/'.$filename, true); ?>
-</div>
+<table height="100%" width="100%" class="media">
+  <tr>
+    <td>
+      <div align="center">
+        <?php echo image_tag('/'.$filename); ?>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div align="center">
+        <strong>Relative URL :</strong>
+        <input type="text" value="<?php echo image_path('/'.$filename); ?>"
+               disabled="true" />
+        </br />
+        <strong>Absolute URL :</strong>
+        <input type="text" value="<?php echo image_path('/'.$filename, true); ?>"
+               disabled="true" />
+      </div>
+    </td>
+  </tr>
+</table>
